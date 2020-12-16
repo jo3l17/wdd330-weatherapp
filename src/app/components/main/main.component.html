@@ -17,31 +17,6 @@
     </div>
     <div class="row">
         <div *ngFor="let city of cities" class="col-sm-12 col-md-6 col-lg-4 mb-2 mt-2">
-            <!-- <mat-card class="city-card">
-                <mat-card-header class="city-card-header">
-                    <mat-card-title>{{city.name}}</mat-card-title>
-                    <mat-card-subtitle>{{city.country}}</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <img src="{{city.icon}}" alt="{{city.description}}">
-                    <h3 *ngIf="temperature">
-                        {{city.temp}}<sup>°C</sup>
-                    </h3>
-                    <h3 *ngIf="!temperature">
-                        {{city.tempF}}<sup>°F</sup>
-                    </h3>
-                    <p>
-                        {{city.description}}
-                    </p>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-stroked-button (click)="deleteCity(city.name)">Delete</button>
-                    <button *ngIf="city.favorite" class="favoritesBtn" mat-flat-button color="primary"
-                        (click)="favoritesCity(city.name,false)">Remove from favorites</button>
-                    <button *ngIf="!city.favorite" mat-stroked-button (click)="favoritesCity(city.name,true)">Add to
-                        favorites</button>
-                </mat-card-actions>
-            </mat-card> -->
             <app-city-temp [city]="city" [temperature]="temperature" (deleteCityEmit)="deleteCity($event)" (favoritesCityEmit)="favoritesCity($event)">{{city}}</app-city-temp>
         </div>
     </div>
