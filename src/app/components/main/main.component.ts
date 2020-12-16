@@ -64,7 +64,6 @@ export class MainComponent implements OnInit {
       this.cities.push(this.utilities.formatData(data));
       this.resetForm();
     }
-    console.log(data)
   }
 
   resetForm() {
@@ -73,14 +72,15 @@ export class MainComponent implements OnInit {
   }
 
   deleteCity(city) {
-    this.favoritesCity(city, false);
+    this.favoritesCity({ city: city, val: false });
     const index = this.cities.findIndex(x => x.name == city);
     if (index > -1) {
       this.cities.splice(index, 1);
     }
   }
 
-  favoritesCity(city, val) {
+  favoritesCity(obj) {
+    const { city, val } = obj;
     this.cities.forEach(element => {
       if (element.name == city) {
         element.favorite = val

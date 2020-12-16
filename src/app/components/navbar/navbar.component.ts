@@ -1,4 +1,6 @@
+import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, OnInit } from '@angular/core';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private clipboard: Clipboard, private snackBarService: SnackbarService) { }
+  supported = false;
 
   ngOnInit(): void {
+  }
+  copyToClipBoard() {
+    this.clipboard.copy('https://wdd330-weatherapp.herokuapp.com/');
+    console.log(this.supported)
+    if (this.supported) {
+      this.snackBarService.openSnackBar('Thanks fo the support !!!!', 'close', 2);
+    }else{
+      this.snackBarService.openSnackBar('Link copied to the clipboard !!!!', 'close', 2);
+    }
+    this.supported = !this.supported;
   }
 
 }
