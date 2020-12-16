@@ -14,6 +14,7 @@ export class MainComponent implements OnInit {
   hintMessage = "";
   hint = false;
   favoriteCities = [];
+  temperature = false;
 
   @ViewChild("cityInput") nameField: ElementRef;
 
@@ -25,7 +26,7 @@ export class MainComponent implements OnInit {
   }
 
   createHintMessage(city) {
-    return `You already know the weather for ${city} ...otherwise be more specific by providing the country code as well 😉`;
+    return `You already know the weather for ${city} ...otherwise be more specific by providing the country code as well`;
   }
 
   async sendCity() {
@@ -105,6 +106,7 @@ export class MainComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.temperature = this.utilities.getFromLS('currentTemp') == 'C' ? true : false;
     this.city.valueChanges.subscribe(val => {
       if (val != "") {
         this.hint = false;
@@ -124,7 +126,10 @@ export class MainComponent implements OnInit {
     if (this.city.hasError('required') || this.city.hasError('empty')) {
       return "You must write a City";
     }
-    return "please enter a valid city name";
+    return "Please enter a valid city name";
+  }
+  changeTemperature() {
+    this.utilities.setItemLS('currentTemp', this.temperature ? 'C' : 'F');
   }
 
 }

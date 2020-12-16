@@ -20,14 +20,14 @@ export class UtilitiesService {
         console.log(error);
       });
   }
-  setItemLS(key,value){
-    localStorage.setItem(key,value)
+  setItemLS(key, value) {
+    localStorage.setItem(key, value)
   }
-  getFromLS(key){
+  getFromLS(key) {
     return localStorage.getItem(key);
   }
 
-  formatData(data,favorite=false) {
+  formatData(data, favorite = false) {
     const { main, name, sys, weather } = data;
     return {
       name,
@@ -36,6 +36,7 @@ export class UtilitiesService {
         }.svg`,
       description: weather[0]["description"],
       temp: Math.round(main.temp),
+      tempF: Math.round((main.temp * 9 / 5) + 32),
       favorite
     }
   }
