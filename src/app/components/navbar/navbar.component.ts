@@ -14,12 +14,12 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  copyToClipBoard() {
+  copyToClipBoard(): void {
     this.clipboard.copy('https://wdd330-weatherapp.herokuapp.com/');
     console.log(this.supported)
     if (this.supported) {
       this.snackBarService.openSnackBar('Thanks fo the support !!!!', 'close', 2);
-    }else{
+    } else {
       this.snackBarService.openSnackBar('Link copied to the clipboard !!!!', 'close', 2);
     }
     this.supported = !this.supported;

@@ -25,11 +25,11 @@ export class MainComponent implements OnInit {
   constructor(private weatherService: WeatherService, private utilities: UtilitiesService) {
   }
 
-  createHintMessage(city) {
+  createHintMessage(city): string {
     return `You already know the weather for ${city} ...otherwise be more specific by providing the country code as well`;
   }
 
-  async sendCity() {
+  async sendCity(): Promise<void> {
     this.city.markAsTouched()
     if (this.city.invalid || !this.city.value) {
       this.city.setErrors({ 'empty': true })
@@ -66,17 +66,16 @@ export class MainComponent implements OnInit {
     }
   }
 
-  resetForm() {
+  resetForm(): void {
     this.city.reset();
     this.focusInput();
   }
 
-  deleteCity(city) {
+  deleteCity(city): void {
     this.favoritesCity({ city: city, val: false });
     const index = this.cities.findIndex(x => x.name == city);
-    if (index > -1) {
+    if (index > -1)
       this.cities.splice(index, 1);
-    }
   }
 
   favoritesCity(obj) {
@@ -88,24 +87,23 @@ export class MainComponent implements OnInit {
           this.favoriteCities.push(element);
         } else {
           const index = this.favoriteCities.findIndex(x => x.name == city);
-          if (index > -1) {
+          if (index > -1)
             this.favoriteCities.splice(index, 1);
-          }
         }
       }
     });
     this.save();
   }
 
-  save() {
+  save(): void {
     this.utilities.setItemLS('favorites', JSON.stringify(this.favoriteCities));
   }
 
-  noErrors() {
+  noErrors(): void {
     this.city.setErrors(null);
   }
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     this.temperature = this.utilities.getFromLS('currentTemp') == 'C' ? true : false;
     this.city.valueChanges.subscribe(val => {
       if (val != "") {
@@ -116,19 +114,18 @@ export class MainComponent implements OnInit {
     this.favoriteCities = await this.weatherService.getFavoritesCities();
     this.cities = [...this.favoriteCities]
   }
-  handleKeyUp(e) {
+  handleKeyUp(e): void {
     if (e.keyCode === 13) {
       this.sendCity();
     }
   }
 
-  getErrorMessage() {
-    if (this.city.hasError('required') || this.city.hasError('empty')) {
+  getErrorMessage(): string {
+    if (this.city.hasError('required') || this.city.hasError('empty'))
       return "You must write a City";
-    }
     return "Please enter a valid city name";
   }
-  changeTemperature() {
+  changeTemperature(): void {
     this.utilities.setItemLS('currentTemp', this.temperature ? 'C' : 'F');
   }
 

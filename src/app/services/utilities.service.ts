@@ -20,14 +20,14 @@ export class UtilitiesService {
         console.log(error);
       });
   }
-  setItemLS(key, value) {
+  setItemLS(key, value): void {
     localStorage.setItem(key, value)
   }
-  getFromLS(key) {
+  getFromLS(key): string {
     return localStorage.getItem(key);
   }
 
-  formatData(data, favorite = false) {
+  formatData(data, favorite = false): Object {
     const { main, name, sys, weather } = data;
     return {
       name,

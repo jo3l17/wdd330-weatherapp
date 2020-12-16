@@ -7,21 +7,21 @@ import { UtilitiesService } from './utilities.service';
 })
 export class WeatherService {
   constructor(private utilities: UtilitiesService) { }
-  async getWeatherByCityName(city) {
-    const units = this.utilities.getFromLS('units')?'metric':'imperial';
+  async getWeatherByCityName(city): Promise<any> {
+    const units = this.utilities.getFromLS('units') ? 'metric' : 'imperial';
     const link: string = `${weatherLink}weather?q=${city}&units=metric&appid=${weatherAPI}`;
     const data = await this.utilities.getJSON(link);
     return data;
   }
-  async getFavoritesCities(){
+  async getFavoritesCities(): Promise<any> {
     const favorites = this.utilities.getFromLS('favorites')
-    if(!favorites){
+    if (!favorites) {
       return []
     }
     const arrayFavorites = JSON.parse(favorites)
     const mapedArray = await Promise.all(arrayFavorites.map(async element => {
       const query = await this.getWeatherByCityName(element.name);
-      return this.utilities.formatData(query,true);
+      return this.utilities.formatData(query, true);
     }));
     return mapedArray;
   }

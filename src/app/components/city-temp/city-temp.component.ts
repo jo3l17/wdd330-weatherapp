@@ -16,11 +16,11 @@ export class CityTempComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  deleteCity() {
+  deleteCity(): void {
     this.deleteCityEmit.emit(this.city.name);
   }
 
-  favoritesCity(value) {
+  favoritesCity(value): void {
     this.favoritesCityEmit.emit({ city: this.city.name, val: value });
   }
 }
